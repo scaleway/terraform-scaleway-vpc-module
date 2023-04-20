@@ -1,30 +1,28 @@
-variable "scale" {
-  description = "Controls if number of Instances should be created"
-  default     = 3
-}
-
 ################################################################################
-# VPC
+# GATEWAY IP REVERSE DNS
 ################################################################################
 
-variable "create_vpc" {
-  description = "Controls if VPC should be created (it affects almost all resources)"
-  type        = bool
-  default     = true
+variable "reverse_dns_zone" {
+  type    = bool
+  default = false
 }
 
-variable "name" {
-  description = "Name to be used on all the resources as identifier"
-  type        = string
-  default     = ""
+variable "gateway_reverse_dns" {
+  type    = bool
+  default = false
 }
-
+################################################################################
+# PRIVATE NETWORK
+################################################################################
 variable "private_network_name" {
   description = "Name to be used on private network resource as identifier"
   type        = string
   default     = ""
 }
 
+################################################################################
+# PUBLIC GATEWAY
+################################################################################
 variable "public_gateway_name" {
   description = "Name to be used on gateway resource as identifier"
   type        = string
@@ -37,28 +35,19 @@ variable "vpc_public_gateway_type" {
   default     = "VPC-GW-S"
 }
 
-variable "vpc_tags" {
-  description = "Additional tags for the VPC"
-  type        = list(string)
-  default     = []
+variable "public_gateway_bastion_enabled" {
+  type        = bool
+  default     = true
+  description = "Defines whether SSH bastion is enabled on the gateway"
 }
 
-variable "vpc_gateway_ip_tags" {
-  description = "Additional tags for the gateway IP"
-  type        = list(string)
-  default     = []
-}
-
-variable "vpc_gateway_tags" {
-  description = "Additional tags for the gateway"
-  type        = list(string)
-  default     = []
-}
-
-variable "vpc_private_network_tags" {
-  description = "Additional tags for the VPC Private Network"
-  type        = list(string)
-  default     = []
+################################################################################
+# General
+################################################################################
+variable "name" {
+  description = "Name to be used on all the resources as identifier"
+  type        = string
+  default     = ""
 }
 
 variable "tags" {
@@ -67,85 +56,122 @@ variable "tags" {
   default     = []
 }
 
-################################################################################
-# Public Subnets
-################################################################################
-
-variable "public_subnets" {
-  description = "A list of public subnets inside the VPC"
+variable "vpc_tags" {
+  description = "Additional tags for the VPC"
   type        = list(string)
   default     = []
 }
 
-variable "public_subnet_ip_prefixes" {
-  description = "Assigns IP public subnet id based on the Scaleway provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
+variable "zone" {
+  description = "Zone in which resources should be created"
+  type        = string
+  default     = null
+}
+
+variable "gateway_enabled" {
+  description = "Create a public gateway and attach it to the subnet"
+  type        = bool
+  default     = true
+}
+
+################################################################################
+# PUBLIC GATEWAY IP
+################################################################################
+
+variable "gateway_reserve_ip" {
+  description = "Reserve a flexible IP for the gateway."
+  type        = bool
+  default     = false
+}
+
+variable "public_gateway_dns_reverse" {
+  default     = null
+  description = "Defines a reverse domain name for the IP address."
+}
+
+################################################################################
+# GATEWAY NETWORK
+################################################################################
+variable "gateway_network_cleanup_dhcp" {
+  type        = bool
+  default     = true
+  description = "Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network)"
+}
+
+variable "gateway_network_enable_masquerade" {
+  type        = bool
+  default     = true
+  description = "Defines whether the gateway should masquerade traffic for the attached Private Network (i.e. whether to enable dynamic NAT)"
+}
+
+################################################################################
+# DHCP
+################################################################################
+variable "gateway_dhcp_subnet" {
+  type        = string
+  default     = "192.168.0.0/24"
+  description = "Subnet for the DHCP server."
+}
+
+variable "gateway_dhcp_address" {
+  type        = string
+  default     = "192.168.0.0"
+  description = "IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet. (IP address)"
+}
+
+variable "gateway_dhcp_pool_low" {
+  type        = string
+  default     = "192.168.0.1"
+  description = "Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet. (IP address)"
+}
+
+variable "gateway_dhcp_pool_high" {
+  type        = string
+  default     = "192.168.0.255"
+  description = "High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet. (IP address)"
+}
+
+variable "gateway_dhcp_enable_dynamic" {
+  type        = bool
+  default     = true
+  description = "Defines whether to enable dynamic pooling of IPs. When false, only pre-existing DHCP reservations will be handed out. Defaults to true"
+}
+
+variable "gateway_dhcp_push_default_route" {
+  type        = bool
+  default     = true
+  description = "Defines whether the gateway should push a default route to DHCP clients or only hand out IPs. Defaults to true"
+}
+
+variable "gateway_dhcp_push_dns_server" {
+  type        = bool
+  default     = true
+  description = "Defines whether the gateway should push custom DNS servers to clients. This allows for Instance hostname -> IP resolution. Defaults to true."
+}
+
+variable "gateway_dhcp_dns_server_servers_override" {
   type        = list(string)
   default     = []
+  description = "A list of additional Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself. Default the `gateway_dhcp_address` "
 }
 
-################################################################################
-# INSTANCE
-################################################################################
-
-variable "instance_image" {
-  description = "Type of image of resource instance"
-  type        = string
-  default     = "ubuntu_jammy"
+variable "gateway_dhcp_valid_lifetime" {
+  default     = 3600
+  description = "How long DHCP entries will be valid for. Defaults to 1h (3600s). (in seconds"
 }
 
-variable "instance_type" {
-  description = "Type of instance of resource instance"
-  type        = string
-  default     = "DEV1-S"
+variable "gateway_dhcp_renew_timer" {
+  default     = 3000
+  description = "After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s). (in seconds)"
 }
 
-################################################################################
-# LOAD BALANCER
-################################################################################
-
-variable "load_balancer_name" {
-  description = "Name to be used on load balancer resource as identifier"
-  type        = string
-  default     = ""
+variable "gateway_dhcp_rebind_timer" {
+  default     = 3060
+  description = "After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s). (in seconds)"
 }
 
-variable "load_balancer_certificate_name" {
-  description = "Name to be used on load balancer certificate resource as identifier"
-  type        = string
-  default     = ""
-}
-
-variable "load_balancer_type" {
-  description = "Type to be used on load balancer resource"
-  type        = string
-  default     = "LB-S"
-}
-
-variable "load_balancer_frontend_name" {
-  description = "Name to be used on load balancer frontend resource as identifier"
-  type        = string
-  default     = ""
-}
-
-variable "load_balancer_frontend_inbound_port" {
-  description = "Port to be used on load balancer frontend resource as inbound port"
-  default     = 443
-}
-
-
-variable "load_balancer_frontend_backend" {
-  description = "Name to be used on load balancer backend resource as identifier"
-  type        = string
-  default     = ""
-}
-
-variable "load_balancer_backend_forward_protocol" {
-  description = "Protocol to be used on load balancer backend resource"
-  type        = string
-  default     = "tcp"
-}
-
-variable "load_balancer_backend_forward_port" {
-  description = "Port to be used on load balancer backend resource as forward port"
-  default     = 80
+variable "gateway_dhcp_dns_search" {
+  type     = list(string)
+  default = null
+  description = "Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself"
 }
