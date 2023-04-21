@@ -68,10 +68,16 @@ variable "zone" {
   default     = null
 }
 
-variable "gateway_enabled" {
-  description = "Create a public gateway and attach it to the subnet"
+variable "create" {
+  description = "Determines whether resources will be created"
   type        = bool
   default     = true
+}
+
+variable "timeouts" {
+  description = "Define maximum timeout for creating, updating, and deleting VPC resources"
+  type        = map(string)
+  default     = {}
 }
 
 ################################################################################
@@ -171,7 +177,19 @@ variable "gateway_dhcp_rebind_timer" {
 }
 
 variable "gateway_dhcp_dns_search" {
-  type     = list(string)
-  default = null
+  type        = list(string)
+  default     = null
   description = "Array of DNS server IP addresses used to override the DNS server list pushed to DHCP clients, instead of the gateway itself"
+}
+
+variable "instances" {
+  description = "A map of interface and/or instance mac addresses containing their properties"
+  type        = any
+  default     = {}
+}
+
+variable "wait_reservations" {
+  description = "Determines whether wait reservations are available"
+  type        = bool
+  default     = true
 }
