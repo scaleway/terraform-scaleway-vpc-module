@@ -115,19 +115,19 @@ variable "gateway_dhcp_subnet" {
 
 variable "gateway_dhcp_address" {
   type        = string
-  default     = "192.168.0.0"
+  default     = "192.168.0.1"
   description = "IP address of the DHCP server. This will be the gateway's address in the Private Network. Defaults to the first address of the subnet. (IP address)"
 }
 
 variable "gateway_dhcp_pool_low" {
   type        = string
-  default     = "192.168.0.1"
+  default     = "192.168.0.2"
   description = "Low IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the second address of the subnet. (IP address)"
 }
 
 variable "gateway_dhcp_pool_high" {
   type        = string
-  default     = "192.168.0.255"
+  default     = "192.168.0.254"
   description = "High IP (inclusive) of the dynamic address pool. Must be in the config's subnet. Defaults to the last address of the subnet. (IP address)"
 }
 
