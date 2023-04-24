@@ -81,21 +81,6 @@ variable "timeouts" {
 }
 
 ################################################################################
-# PUBLIC GATEWAY IP
-################################################################################
-
-variable "gateway_reserve_ip" {
-  description = "Reserve a flexible IP for the gateway."
-  type        = bool
-  default     = false
-}
-
-variable "public_gateway_dns_reverse" {
-  default     = null
-  description = "Defines a reverse domain name for the IP address."
-}
-
-################################################################################
 # GATEWAY NETWORK
 ################################################################################
 variable "gateway_network_cleanup_dhcp" {
@@ -163,16 +148,19 @@ variable "gateway_dhcp_dns_server_servers_override" {
 
 variable "gateway_dhcp_valid_lifetime" {
   default     = 3600
+  type        = number
   description = "How long DHCP entries will be valid for. Defaults to 1h (3600s). (in seconds"
 }
 
 variable "gateway_dhcp_renew_timer" {
   default     = 3000
+  type        = number
   description = "After how long a renew will be attempted. Must be 30s lower than `rebind_timer`. Defaults to 50m (3000s). (in seconds)"
 }
 
 variable "gateway_dhcp_rebind_timer" {
   default     = 3060
+  type        = number
   description = "After how long a DHCP client will query for a new lease if previous renews fail. Must be 30s lower than `valid_lifetime`. Defaults to 51m (3060s). (in seconds)"
 }
 
