@@ -15,6 +15,7 @@ resource "scaleway_vpc_public_gateway_ip" "main" {
   zone = var.zone
 }
 
+### IP Reverse for Public Gateway
 resource "scaleway_vpc_public_gateway_ip_reverse_dns" "main" {
   count         = var.create && var.gateway_reverse_dns ? 1 : 0
   gateway_ip_id = var.gateway_reverse_dns ? scaleway_vpc_public_gateway_ip.main[count.index].id : null
@@ -55,7 +56,7 @@ resource "scaleway_vpc_private_network" "main" {
   zone = var.zone
 }
 
-### DHCP Space of VPC
+### DHCP Space of VPC Public Gateway
 resource "scaleway_vpc_public_gateway_dhcp" "main" {
   count                = var.create ? 1 : 0
   subnet               = var.gateway_dhcp_subnet
