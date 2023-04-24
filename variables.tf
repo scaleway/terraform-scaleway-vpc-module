@@ -3,21 +3,23 @@
 ################################################################################
 
 variable "reverse_dns_zone" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "Reverse domain name for the IP address"
 }
 
 variable "gateway_reverse_dns" {
-  type    = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project"
 }
 ################################################################################
 # PRIVATE NETWORK
 ################################################################################
 variable "private_network_name" {
-  description = "Name to be used on private network resource as identifier"
   type        = string
   default     = ""
+  description = "Name to be used on private network resource as identifier"
 }
 
 ################################################################################
