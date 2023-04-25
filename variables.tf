@@ -19,23 +19,24 @@ variable "vpc_tags" {
   default     = []
 }
 
-variable "zone" {
-  description = "Zone in which resources should be created"
-  type        = string
-  default     = null
-}
-
-variable "create" {
-  description = "Determines whether resources will be created"
-  type        = bool
-  default     = true
-}
-
 variable "timeouts" {
   description = "Define maximum timeout for creating, updating, and deleting VPC resources"
   type        = map(string)
   default     = {}
 }
+
+variable "azs" {
+  description = "A list of availability zones in the region"
+  type        = list(string)
+  default     = []
+}
+
+variable "list_reservations" {
+  type        = bool
+  default     = false
+  description = "Defines whether to list reservations addresses)"
+}
+
 
 ################################################################################
 # PUBLIC GATEWAY
