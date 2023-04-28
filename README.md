@@ -1,4 +1,4 @@
-# terraform-scaleway-vpc-module
+# Scaleway VPC Terraform module
 
 This module can be used to deploy a VPC with various resources. Common deployment examples can be found in [examples/](./examples).
 
