@@ -6,7 +6,7 @@ locals {
   name   = "ex-${basename(path.cwd)}"
   region = "fr-par"
   zones  = tolist(["fr-par-1", "fr-par-2"])
-  tags   = [
+  tags = [
     local.name,
     "terraform-scaleway-vpc-module"
   ]
@@ -17,7 +17,7 @@ locals {
 ################################################################################
 
 module "vpc" {
-  source = "scaleway/vpc"
+  source = "../../"
   zones  = local.zones
   name   = local.name
   tags   = local.tags
