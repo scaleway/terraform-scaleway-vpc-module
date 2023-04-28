@@ -25,7 +25,7 @@ variable "timeouts" {
   default     = {}
 }
 
-variable "azs" {
+variable "zones" {
   description = "A list of availability zones in the region"
   type        = list(string)
   default     = []
