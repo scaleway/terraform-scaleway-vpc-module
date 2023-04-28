@@ -17,7 +17,7 @@ locals {
 ################################################################################
 
 module "vpc" {
-  source = "../../"
+  source = "scaleway/vpc"
   azs    = local.azs
   name   = local.name
   tags   = local.tags
