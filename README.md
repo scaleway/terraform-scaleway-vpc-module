@@ -1,6 +1,6 @@
 # Scaleway VPC Terraform module
 
-This module can be used to deploy a VPC with various resources. Common deployment examples can be found in [examples/](./examples).
+Terraform module that can be used to deploy VPC resources on Scaleway. Common deployment examples can be found in [examples/](./examples).
 
 ## Usage
 
