@@ -4,7 +4,7 @@ Terraform module that can be used to deploy VPC resources on Scaleway. Common de
 
 ## Usage
 
-The example below builds a simple VPC with a PGW, a Load Balancer and some instances behind it.
+The example below provision a basic VPC with a Public Gateway and a Load Balancer with some instances behind it.
 
 ``` hcl
 module "vpc" {
