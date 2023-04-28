@@ -1,6 +1,6 @@
 # Simple VPC
 
-Configuration in this directory creates set of VPC resources which may be sufficient for development environment.
+Configuration in this directory creates a set of VPC resources which may be sufficient for development environment.
 
 There is a public, private subnet and DHCP server created per availability zone.
 
