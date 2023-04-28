@@ -5,8 +5,8 @@ provider "scaleway" {
 locals {
   name   = "ex-${basename(path.cwd)}"
   region = "fr-par"
-  azs    = tolist(["fr-par-1", "fr-par-2"])
-  tags = [
+  zones  = tolist(["fr-par-1", "fr-par-2"])
+  tags   = [
     local.name,
     "terraform-scaleway-vpc-module"
   ]
@@ -18,7 +18,7 @@ locals {
 
 module "vpc" {
   source = "scaleway/vpc"
-  azs    = local.azs
+  zones  = local.zones
   name   = local.name
   tags   = local.tags
 }
