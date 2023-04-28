@@ -1,10 +1,10 @@
-# Simple VPC
+# Basic VPC
 
 Configuration in this directory creates a set of VPC resources which may be sufficient for development environment.
 
-There is a public, private subnet and DHCP server created per availability zone.
+For demonstration purposes, a public subnet, private subnet, and DHCP server are created per availability zone.
 
-This configuration in only for demonstration purposes. Normally, you need to specify only names or your custom CIDR configuration.
+In typical scenarios, specifying names or custom CIDR configuration is sufficient, without the need for this setup.
 
 [Read more about Scaleway regions, zones](https://registry.terraform.io/providers/scaleway/scaleway/latest/docs/guides/regions_and_zones).
 
