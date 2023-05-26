@@ -20,7 +20,7 @@ content: ""
 
 output:
   file: Readme.md
-  mode: inject
+  mode: replace
   template: |-
     <!-- BEGIN_TF_DOCS -->
     # Scaleway VPC Terraform module
@@ -53,6 +53,7 @@ output:
     terraform-docs .
     ```
     <!-- END_TF_DOCS -->
+    {{- printf "\n" -}}
 
 output-values:
   enabled: false
