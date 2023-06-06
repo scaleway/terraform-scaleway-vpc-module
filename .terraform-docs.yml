@@ -1,0 +1,79 @@
+formatter: markdown table # this is required
+
+version: ""
+
+header-from: main.tf
+footer-from: ""
+
+recursive:
+  enabled: false
+  path: modules
+
+sections:
+  hide: []
+  show: []
+
+  hide-all: false # deprecated in v0.13.0, removed in v0.15.0
+  show-all: true  # deprecated in v0.13.0, removed in v0.15.0
+
+content: ""
+
+output:
+  file: Readme.md
+  mode: replace
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    # Scaleway VPC Terraform module
+
+    Terraform module that can be used to deploy VPC resources on Scaleway. Common deployment examples can be found in [examples/](./examples).
+
+    ## Usage
+
+    The example below provision a basic VPC with a Public Gateway and a Load Balancer with some instances behind it.
+
+    ``` hcl
+    module "vpc" {
+      # to modify
+      source  = "scaleway/vpc"
+      version = ">= 1.0.0"
+
+      private_network_name = "my_vpc"
+      zone                 = "fr-par-1"
+    }
+    ```
+
+    {{ .Content }}
+
+    ## Refresh documentation
+
+    To create the Readme.md, we use [Terraform-docs](https://terraform-docs.io/). The configuration is in the file `.terraform-docs.yml`.
+    If you want to refresh the `Readme.md`, from the root of the module execute the following command:
+
+    ``` shell
+    terraform-docs .
+    ```
+    <!-- END_TF_DOCS -->
+    {{- printf "\n" -}}
+
+output-values:
+  enabled: false
+  from: ""
+
+sort:
+  enabled: true
+  by: name
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: false
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
