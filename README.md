@@ -10,11 +10,11 @@ The example below provision a basic VPC with a Public Gateway and a Load Balance
 ``` hcl
 module "vpc" {
   # to modify
-  source  = "scaleway/vpc"
+  source  = "scaleway/vpc-module/scaleway"
   version = ">= 1.0.0"
 
   private_network_name = "my_vpc"
-  zone                 = "fr-par-1"
+  zones                = ["fr-par-1"]
 }
 ```
 
