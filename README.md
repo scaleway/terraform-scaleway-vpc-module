@@ -13,6 +13,7 @@ module "vpc" {
   source  = "scaleway/vpc-module/scaleway"
   version = ">= 1.0.0"
 
+  public_gateway_name  = "my_public_gw"
   private_network_name = "my_vpc"
   zones                = ["fr-par-1"]
 }
