@@ -85,7 +85,6 @@ resource "scaleway_vpc_gateway_network" "main" {
   count              = length(var.zones)
   gateway_id         = scaleway_vpc_public_gateway.main[count.index].id
   private_network_id = scaleway_vpc_private_network.main[count.index].id
-  dhcp_id            = scaleway_vpc_public_gateway_dhcp.main[count.index].id
   cleanup_dhcp       = var.gateway_network_cleanup_dhcp
   enable_masquerade  = var.gateway_network_enable_masquerade
   depends_on = [
@@ -93,6 +92,9 @@ resource "scaleway_vpc_gateway_network" "main" {
     scaleway_vpc_public_gateway_dhcp.main
   ]
   zone = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
+  ipam_config {
+    push_default_route = true
+  }
   timeouts {
     create = lookup(var.timeouts, "create", "10m")
     update = lookup(var.timeouts, "update", "10m")
