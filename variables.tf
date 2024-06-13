@@ -98,6 +98,12 @@ variable "private_network_name" {
   description = "Name to be used on private network resource as identifier"
 }
 
+variable "private_network_ipv4_subnet" {
+  type        = string
+  default     = "192.168.0.0/24"
+  description = "IPv4 subnet to be used on private network resource"
+}
+
 ################################################################################
 # DHCP
 ################################################################################
