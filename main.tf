@@ -71,7 +71,7 @@ resource "scaleway_vpc_public_gateway_dhcp" "main" {
   dns_servers_override = concat([
     var.gateway_dhcp_address
   ], var.gateway_dhcp_dns_server_servers_override)
-  dns_local_name = scaleway_vpc_private_network.main[count.index].name
+  dns_local_name = replace(scaleway_vpc_private_network.main[count.index].name, "_", "-")
   valid_lifetime = var.gateway_dhcp_valid_lifetime
   renew_timer    = var.gateway_dhcp_renew_timer
   rebind_timer   = var.gateway_dhcp_rebind_timer
