@@ -5,6 +5,16 @@ locals {
   instances = { for k, v in var.instances : k => v if var.list_reservations }
 }
 
+### VPC
+resource "scaleway_vpc" "main" {
+  enable_routing = true
+  name           = var.name
+  tags = concat(
+    var.tags,
+    var.vpc_tags,
+  )
+}
+
 ### IP for Public Gateway
 resource "scaleway_vpc_public_gateway_ip" "main" {
   count = length(var.zones)
@@ -55,7 +65,8 @@ resource "scaleway_vpc_private_network" "main" {
     var.tags,
     var.vpc_tags,
   )
-  zone = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
+  vpc_id = scaleway_vpc.main.id
+  zone   = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
 }
 
 ### DHCP Space of VPC Public Gateway
