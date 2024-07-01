@@ -56,6 +56,10 @@ resource "scaleway_vpc_private_network" "main" {
     var.vpc_tags,
   )
   zone = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
+
+  ipv4_subnet {
+    subnet = var.private_network_ipv4_subnet
+  }
 }
 
 ### DHCP Space of VPC Public Gateway
