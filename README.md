@@ -73,6 +73,7 @@ No modules.
 | <a name="input_private_network_ipv4_subnet"></a> [private\_network\_ipv4\_subnet](#input\_private\_network\_ipv4\_subnet) | IPv4 subnet to be used on private network resource | `string` | `"192.168.0.0/24"` | no |
 | <a name="input_private_network_name"></a> [private\_network\_name](#input\_private\_network\_name) | Name to be used on private network resource as identifier | `string` | `""` | no |
 | <a name="input_public_gateway_bastion_enabled"></a> [public\_gateway\_bastion\_enabled](#input\_public\_gateway\_bastion\_enabled) | Defines whether SSH bastion is enabled on the gateway | `bool` | `true` | no |
+| <a name="input_public_gateway_enable_smtp"></a> [public\_gateway\_enable\_smtp](#input\_public\_gateway\_enable\_smtp) | Defines whether SMTP is allowed on the gateway | `bool` | `false` | no |
 | <a name="input_public_gateway_name"></a> [public\_gateway\_name](#input\_public\_gateway\_name) | Name to be used on gateway resource as identifier | `string` | `""` | no |
 | <a name="input_reverse_dns_zone"></a> [reverse\_dns\_zone](#input\_reverse\_dns\_zone) | Reverse domain name for the IP address | `string` | `false` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A list of tags to add to all resources | `list(string)` | `[]` | no |

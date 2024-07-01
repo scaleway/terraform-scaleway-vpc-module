@@ -59,6 +59,12 @@ variable "public_gateway_bastion_enabled" {
   description = "Defines whether SSH bastion is enabled on the gateway"
 }
 
+variable "public_gateway_enable_smtp" {
+  type        = bool
+  default     = false
+  description = "Defines whether SMTP is allowed on the gateway"
+}
+
 ################################################################################
 # GATEWAY NETWORK
 ################################################################################

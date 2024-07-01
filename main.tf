@@ -34,6 +34,7 @@ resource "scaleway_vpc_public_gateway" "main" {
   type            = var.vpc_public_gateway_type
   ip_id           = scaleway_vpc_public_gateway_ip.main[count.index].id
   bastion_enabled = var.public_gateway_bastion_enabled
+  enable_smtp     = var.public_gateway_enable_smtp
   depends_on      = [scaleway_vpc_public_gateway_ip.main]
   tags = concat(
     var.tags,
