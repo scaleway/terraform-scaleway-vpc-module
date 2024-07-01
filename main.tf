@@ -44,6 +44,7 @@ resource "scaleway_vpc_public_gateway" "main" {
   type            = var.vpc_public_gateway_type
   ip_id           = scaleway_vpc_public_gateway_ip.main[count.index].id
   bastion_enabled = var.public_gateway_bastion_enabled
+  enable_smtp     = var.public_gateway_enable_smtp
   depends_on      = [scaleway_vpc_public_gateway_ip.main]
   tags = concat(
     var.tags,
@@ -67,6 +68,10 @@ resource "scaleway_vpc_private_network" "main" {
   )
   vpc_id = scaleway_vpc.main.id
   zone   = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
+
+  ipv4_subnet {
+    subnet = var.private_network_ipv4_subnet
+  }
 }
 
 ### DHCP Space of VPC Public Gateway

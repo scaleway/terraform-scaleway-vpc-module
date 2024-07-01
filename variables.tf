@@ -59,6 +59,12 @@ variable "public_gateway_bastion_enabled" {
   description = "Defines whether SSH bastion is enabled on the gateway"
 }
 
+variable "public_gateway_enable_smtp" {
+  type        = bool
+  default     = false
+  description = "Defines whether SMTP is allowed on the gateway"
+}
+
 ################################################################################
 # GATEWAY NETWORK
 ################################################################################
@@ -96,6 +102,12 @@ variable "private_network_name" {
   type        = string
   default     = ""
   description = "Name to be used on private network resource as identifier"
+}
+
+variable "private_network_ipv4_subnet" {
+  type        = string
+  default     = "192.168.0.0/24"
+  description = "IPv4 subnet to be used on private network resource"
 }
 
 ################################################################################
