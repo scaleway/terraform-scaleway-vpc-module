@@ -58,28 +58,6 @@ resource "scaleway_vpc_private_network" "main" {
   zone = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
 }
 
-### DHCP Space of VPC Public Gateway
-resource "scaleway_vpc_public_gateway_dhcp" "main" {
-  count              = length(var.zones)
-  subnet             = var.gateway_dhcp_subnet
-  address            = var.gateway_dhcp_address
-  pool_low           = var.gateway_dhcp_pool_low
-  pool_high          = var.gateway_dhcp_pool_high
-  enable_dynamic     = var.gateway_dhcp_enable_dynamic
-  push_default_route = var.gateway_dhcp_push_default_route
-  push_dns_server    = var.gateway_dhcp_push_dns_server
-  dns_servers_override = concat([
-    var.gateway_dhcp_address
-  ], var.gateway_dhcp_dns_server_servers_override)
-  dns_local_name = replace(scaleway_vpc_private_network.main[count.index].name, "_", "-")
-  valid_lifetime = var.gateway_dhcp_valid_lifetime
-  renew_timer    = var.gateway_dhcp_renew_timer
-  rebind_timer   = var.gateway_dhcp_rebind_timer
-  dns_search     = var.gateway_dhcp_dns_search
-  depends_on     = [scaleway_vpc_private_network.main]
-  zone           = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
-}
-
 ### VPC Gateway Network
 resource "scaleway_vpc_gateway_network" "main" {
   count              = length(var.zones)
@@ -87,11 +65,7 @@ resource "scaleway_vpc_gateway_network" "main" {
   private_network_id = scaleway_vpc_private_network.main[count.index].id
   cleanup_dhcp       = var.gateway_network_cleanup_dhcp
   enable_masquerade  = var.gateway_network_enable_masquerade
-  depends_on = [
-    scaleway_vpc_public_gateway.main, scaleway_vpc_private_network.main,
-    scaleway_vpc_public_gateway_dhcp.main
-  ]
-  zone = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
+  zone               = length(regexall("^[a-z]{2}-", element(var.zones, count.index))) > 0 ? element(var.zones, count.index) : null
   ipam_config {
     push_default_route = true
   }
@@ -100,10 +74,4 @@ resource "scaleway_vpc_gateway_network" "main" {
     update = lookup(var.timeouts, "update", "10m")
     delete = lookup(var.timeouts, "delete", "10m")
   }
-}
-
-data "scaleway_vpc_public_gateway_dhcp_reservation" "reservations" {
-  for_each      = local.instances
-  mac_address   = lookup(each.value, "mac_address", null)
-  wait_for_dhcp = var.wait_reservations
 }
