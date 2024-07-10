@@ -53,8 +53,6 @@ No modules.
 | <a name="input_gateway_network_cleanup_dhcp"></a> [gateway\_network\_cleanup\_dhcp](#input\_gateway\_network\_cleanup\_dhcp) | Defines whether to clean up attached DHCP configurations (if any, and if not attached to another Gateway Network) | `bool` | `true` | no |
 | <a name="input_gateway_network_enable_masquerade"></a> [gateway\_network\_enable\_masquerade](#input\_gateway\_network\_enable\_masquerade) | Defines whether the gateway should masquerade traffic for the attached Private Network (i.e. whether to enable dynamic NAT) | `bool` | `true` | no |
 | <a name="input_gateway_reverse_dns"></a> [gateway\_reverse\_dns](#input\_gateway\_reverse\_dns) | Create (reserve) a new flexible IP address that can be used for a Public Gateway in a specified Scaleway Project | `bool` | `false` | no |
-| <a name="input_instances"></a> [instances](#input\_instances) | A map of interface and/or instance mac addresses containing their properties | `any` | `{}` | no |
-| <a name="input_list_reservations"></a> [list\_reservations](#input\_list\_reservations) | Defines whether to list reservations addresses) | `bool` | `false` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name to be used on all the resources as identifier | `string` | `""` | no |
 | <a name="input_private_network_ipv4_subnet"></a> [private\_network\_ipv4\_subnet](#input\_private\_network\_ipv4\_subnet) | IPv4 subnet to be used on private network resource | `string` | `"192.168.0.0/24"` | no |
 | <a name="input_private_network_name"></a> [private\_network\_name](#input\_private\_network\_name) | Name to be used on private network resource as identifier | `string` | `""` | no |
@@ -66,7 +64,6 @@ No modules.
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Define maximum timeout for creating, updating, and deleting VPC resources | `map(string)` | `{}` | no |
 | <a name="input_vpc_public_gateway_type"></a> [vpc\_public\_gateway\_type](#input\_vpc\_public\_gateway\_type) | Type to be used on gateway resource as default | `string` | `"VPC-GW-S"` | no |
 | <a name="input_vpc_tags"></a> [vpc\_tags](#input\_vpc\_tags) | Additional tags for the VPC | `list(string)` | `[]` | no |
-| <a name="input_wait_reservations"></a> [wait\_reservations](#input\_wait\_reservations) | Determines whether wait reservations are available | `bool` | `true` | no |
 | <a name="input_zones"></a> [zones](#input\_zones) | A list of availability zones in the region | `list(string)` | `[]` | no |
 
 ## Outputs

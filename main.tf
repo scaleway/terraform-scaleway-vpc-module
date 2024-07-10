@@ -1,10 +1,6 @@
 ################################################################################
 # VPC
 ################################################################################
-locals {
-  instances = { for k, v in var.instances : k => v if var.list_reservations }
-}
-
 ### IP for Public Gateway
 resource "scaleway_vpc_public_gateway_ip" "main" {
   count = length(var.zones)

@@ -31,13 +31,6 @@ variable "zones" {
   default     = []
 }
 
-variable "list_reservations" {
-  type        = bool
-  default     = false
-  description = "Defines whether to list reservations addresses)"
-}
-
-
 ################################################################################
 # PUBLIC GATEWAY
 ################################################################################
@@ -108,16 +101,4 @@ variable "private_network_ipv4_subnet" {
   type        = string
   default     = "192.168.0.0/24"
   description = "IPv4 subnet to be used on private network resource"
-}
-
-variable "instances" {
-  description = "A map of interface and/or instance mac addresses containing their properties"
-  type        = any
-  default     = {}
-}
-
-variable "wait_reservations" {
-  description = "Determines whether wait reservations are available"
-  type        = bool
-  default     = true
 }
