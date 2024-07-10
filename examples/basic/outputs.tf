@@ -17,8 +17,3 @@ output "default_private_network_ids" {
   description = "IDs of private networks."
   value       = module.vpc.private_network_id
 }
-
-output "reservations" {
-  description = "IPs address of reservations"
-  value       = module.vpc.dhcp_reservations
-}

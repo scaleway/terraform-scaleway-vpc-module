@@ -17,8 +17,3 @@ output "private_network_id" {
   description = "ID of private networks."
   value       = scaleway_vpc_private_network.main[*].id
 }
-
-output "dhcp_reservations" {
-  description = "ID of VPC Gateway DHCP reservations."
-  value       = data.scaleway_vpc_public_gateway_dhcp_reservation.reservations[*]
-}
