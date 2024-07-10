@@ -45,10 +45,9 @@ No inputs.
 
 ## Outputs
 
-| Name                                | Description                                                                  |
-|-------------------------------------|------------------------------------------------------------------------------|
-| default_public_gateway_ip_addresses | List of Address of the public gateway IP.                                    |
-| default_public_gateway_ip_id        | List of IDs of gateway IP.                                                   |
-| default_public_gateway_id           | List of IDs of public gateway.                                               |
-| default_private_network_id          | List of IDs of private networks.                                             |
-| dhcp_reservations                   | List containing the full resource object and attributes for all reservations |
+| Name                                | Description                               |
+| ----------------------------------- | ----------------------------------------- |
+| default_public_gateway_ip_addresses | List of Address of the public gateway IP. |
+| default_public_gateway_ip_id        | List of IDs of gateway IP.                |
+| default_public_gateway_id           | List of IDs of public gateway.            |
+| default_private_network_id          | List of IDs of private networks.          |
